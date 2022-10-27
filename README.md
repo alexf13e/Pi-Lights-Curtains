@@ -13,3 +13,8 @@ The Pi (specifically a Raspberry Pi Zero W) uses Wi-Fi to connect to the plugs a
 reason to move back.
 
 The system can also be controlled directly with an RF remote, which can toggle the curtains and blinds individually and all of the lights together.
+
+Additional notes:
+* The Read_Analogue file is made of slightly modified code from here (https://www.raspberrypi-spy.co.uk/2013/10/analogue-sensors-on-the-raspberry-pi-using-an-mcp3008/)
+* The MainControl file contains a section with functions referencing "remote control", this was something I was experimenting with where the program could be controlled from another network pc and have parameters changed, with the goal being a program or phone app my dad could use to more easily alter the program than going into the code
+* This was one of the first major python programs I had written, and was also written with it in mind that my (non-programming) dad may need to read and change it in the future. As such, there are many pointless comments and things which could be written much better. I haven't really had the time or interest to overhaul the program, and it still works soo...
