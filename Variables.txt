@@ -1,0 +1,1 @@
+{"lights_off_value": 150, "lights_on_value": 250, "curtains_open_value": 150, "curtains_close_value": 150, "lounge_open": true, "dining_open": true, "blind_open": true, "lights_are_on": false, "ldr_read_delay": 300, "Curtains.pulse_length": 0.125, "Curtains.current_limit": 35, "Curtains.lounge_open_timeout": 22, "Curtains.lounge_close_timeout": 20}
