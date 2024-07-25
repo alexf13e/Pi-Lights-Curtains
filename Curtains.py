@@ -101,17 +101,17 @@ class LoungeCurtain:
 
 
     def __operate(self, relay_direction: RelayDirections):
-        voltage_readings = [0, 0, 0]
+        current_readings = [0, 0, 0]
 
         ### helper functions
-        def update_voltage_readings():
-            voltage_readings[2] = voltage_readings[1]
-            voltage_readings[1] = voltage_readings[0]
-            voltage_readings[0] = ReadAnalogue.read_curtain_motor_power()
+        def update_current_readings():
+            current_readings[2] = current_readings[1]
+            current_readings[1] = current_readings[0]
+            current_readings[0] = ReadAnalogue.read_curtain_motor_power()
 
-        def check_voltage_limit_exceeded():
+        def check_current_limit_exceeded():
             for i in range(3):
-                if voltage_readings[i] < self.current_limit:
+                if current_readings[i] < self.current_limit:
                     return False
             return True
         ###
@@ -127,11 +127,11 @@ class LoungeCurtain:
         stop_reason = ""
         start_time = time.time()
         while True:
-            update_voltage_readings()
+            update_current_readings()
 
             # exit loop and continue to next section if current is too high
-            if check_voltage_limit_exceeded():
-                stop_reason = "voltage"
+            if check_current_limit_exceeded():
+                stop_reason = "current"
                 break
 
             if time.time() - start_time >= self.open_timeout:
@@ -150,7 +150,7 @@ class LoungeCurtain:
         GPIO.output(Pins.PIN_LOUNGE_MOTOR, 0)
         GPIO.output(Pins.PIN_LOUNGE_SHAFT_LED, 0)
 
-        if stop_reason == "voltage" or stop_reason == "timeout":
+        if stop_reason == "current" or stop_reason == "timeout":
             # curtains were stopped by current or time, likely want to reverse track a little
             time.sleep(0.25)
             GPIO.output(Pins.PIN_LOUNGE_RELAY, 1 - relay_direction)   # relay to opposite direction
