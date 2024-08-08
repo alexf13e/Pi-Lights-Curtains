@@ -156,14 +156,13 @@ class LDR:
         trend_valid = self.get_trend_valid()
         if not trend_valid:
             self.update_values(actual_reading)
-            return
-
-        self.update_trend_equation()
-        predicted_reading = self.get_predicted_reading()
-        if abs(actual_reading - predicted_reading) > self.prediction_error_threshold:
-            # actual reading is likely an error, ignore it and use the predicted value instead
-#            Log.write(f"Actual reading ({actual_reading}) was too far from predicted reading ({predicted_reading}) and ignored")
-            self.update_values(predicted_reading)
         else:
-#            Log.write(f"Actual reading ({actual_reading}) was within range ({self.prediction_error_threshold}) of predicted reading ({predicted_reading})")
-            self.update_values(actual_reading)
+            predicted_reading = self.get_predicted_reading()
+            if abs(actual_reading - predicted_reading) > self.prediction_error_threshold:
+                # actual reading is likely an error, ignore it and use the predicted value instead
+                Log.write(f"Actual reading ({actual_reading}) was too far from predicted reading ({predicted_reading}) and ignored")
+                self.update_values(predicted_reading)
+            else:
+#                Log.write(f"Actual reading ({actual_reading}) was within range ({self.prediction_error_threshold}) of predicted reading ({predicted_reading})")
+                self.update_values(actual_reading)
+        self.update_trend_equation()
