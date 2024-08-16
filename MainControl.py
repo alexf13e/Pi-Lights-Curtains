@@ -41,7 +41,7 @@ async def update_lights(ldr: LDR):
                     await Lights.turn_off()
                     lights_changed = True
 
-            # may be neither true or false if ldr value trend was flat between thresholds
+            # may return None, meaning no change wants to happen
 
         if lights_changed:
             ldr.time_previous_lights_action = time.time()
